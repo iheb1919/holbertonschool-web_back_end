@@ -2,8 +2,8 @@
 """
 annotated a function
 """
-
 from typing import *
+
 
 def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
     """

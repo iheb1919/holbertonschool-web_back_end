@@ -41,6 +41,8 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
+        method with two integer arguments: index with a None default value
+        and page_size with default value of 10.
         """
         assert type(index) is int
         assert index in range(len(self.indexed_dataset()))
@@ -49,8 +51,9 @@ class Server:
         for i in range(index, index + page_size):
             if self.indexed_dataset().get(i):
                 data.append(self.indexed_dataset()[i])
-            i += 1
-            next_index += 1
+            else:
+                i += 1
+                next_index += 1
         datas = {'data': data,
                  'index': index,
                  'next_index': next_index,

@@ -7,7 +7,7 @@ import re
 import logging
 import mysql.connector
 from os import getenv
-PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'last_login')
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(fields: List[str], redaction: str,
@@ -65,5 +65,33 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
             password=getenv('PERSONAL_DATA_DB_PASSWORD', ''),
             host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
             database=getenv('PERSONAL_DATA_DB_NAME'))
-
     return db
+
+
+def main():
+    """
+    function that takes no arguments and returns nothing.
+    """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    users = cursor.fetchall()
+    for user in users:
+        message = f"name={user[0]}; " + \
+                  f"email={user[1]}; " + \
+                  f"phone={user[2]}; " + \
+                  f"ssn={user[3]}; " + \
+                  f"password={user[4]}; " + \
+                  f"ip={user[5]}; " + \
+                  f"last_login={user[6]}; " + \
+                  f"user_agent={user[7]};"
+        print(message)
+        log = logging.LogRecord("my_logger", logging.INFO,
+                                       None, None, message, None, None)
+        formatt = RedactingFormatter(PII_FIELDS)
+        formatt.format(log)
+    cursor.close()
+    db.close()
+
+if __name__ == '__main__':
+    main()   

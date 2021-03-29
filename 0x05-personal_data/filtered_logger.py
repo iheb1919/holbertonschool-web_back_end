@@ -87,11 +87,12 @@ def main():
                   f"user_agent={user[7]};"
         print(message)
         log = logging.LogRecord("my_logger", logging.INFO,
-                                       None, None, message, None, None)
+                                None, None, message, None, None)
         formatt = RedactingFormatter(PII_FIELDS)
         formatt.format(log)
     cursor.close()
     db.close()
 
+
 if __name__ == '__main__':
-    main()   
+    main()

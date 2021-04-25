@@ -24,7 +24,7 @@ class Auth():
             if search != -1:
                 path2 = path[:search]
                 if path2 == item[:search]:
-                    return false 
+                    return False
             elif path == item:
                 return False
         return True

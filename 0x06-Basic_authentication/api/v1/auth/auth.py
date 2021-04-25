@@ -20,7 +20,12 @@ class Auth():
         if path[len(path) - 1] != '/':
             path += '/'
         for item in excluded_path:
-            if path == item:
+            search = item.find("*")
+            if search != -1:
+                path2 = path[:search]
+                if path2 == item[:search]:
+                    return false 
+            elif path == item:
                 return False
         return True
 

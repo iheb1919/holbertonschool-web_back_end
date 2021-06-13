@@ -23,7 +23,7 @@ class DB:
 
     @property
     def _session(self) -> Session:
-        """Memoized session object
+        """DB module Memoized session object
         """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
@@ -31,7 +31,7 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """add_user
+        """DB module add_user
         """
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
@@ -39,7 +39,7 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs) -> User:
-        """Find_user
+        """DB module Find_user
         """
         user = self._session.query(User).filter_by(**kwargs).first()
         if not user:
@@ -47,7 +47,7 @@ class DB:
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """Update user
+        """DB module Update user
         """
         user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():

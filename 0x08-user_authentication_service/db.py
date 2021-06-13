@@ -5,8 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from user import User
-from user import Base
+from user import Base, User
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -14,7 +13,7 @@ class DB:
     """DB class DB module
     """
 
-    def __init__(self) -> None:
+    def __init__(self):
         """Initialize a new DB instance
         """
         self._engine = create_engine("sqlite:///a.db", echo=False)
@@ -23,7 +22,7 @@ class DB:
         self.__session = None
 
     @property
-    def _session(self) -> Session:
+    def _session(self):
         """DB module Memoized session object
         """
         if self.__session is None:

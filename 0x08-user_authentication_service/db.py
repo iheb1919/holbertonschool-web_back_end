@@ -10,7 +10,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 class DB:
-    """DB class DB module 
+    """DB class DB module
     """
 
     def __init__(self) -> None:

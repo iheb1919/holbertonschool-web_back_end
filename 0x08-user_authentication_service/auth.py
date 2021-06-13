@@ -13,6 +13,7 @@ def _hash_password(password: str) -> str:
     """
     return bcrypt.hashpw(bytes(password, 'utf-8'), bcrypt.gensalt())
 
+
 class Auth:
     """Auth
     """

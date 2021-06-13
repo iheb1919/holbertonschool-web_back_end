@@ -47,7 +47,9 @@ class DB:
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """DB module Update user
+        """
+            Update a user in database
+            Return None
         """
         user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():

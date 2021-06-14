@@ -2,6 +2,7 @@
 """ This module creates a Flask app """
 from flask import Flask, g, render_template, request
 from flask_babel import Babel
+from pytz import UnknownTimeZoneError, timezone
 app = Flask(__name__)
 babel = Babel(app)
 users = {
@@ -25,7 +26,7 @@ app.config.from_object(Config)
 @app.route('/')
 def index():
     """ Returns the index.html page """
-    return render_template("6-index.html")
+    return render_template("7-index.html")
 
 
 @babel.localeselector
@@ -58,6 +59,29 @@ def before_request():
         user_id = int(user_id)
     g.user = get_user(user_id)
     g.locale = get_locale()
+    g.timezone = get_timezone()
+
+
+@babel.timezoneselector
+def get_timezone():
+    """ Gets timezone from query string, user settings, or returns default from
+    babel config """
+    url_timezone = request.args.get("timezone")
+    if url_timezone is not None:
+        try:
+            timezone(url_timezone)
+            return url_timezone
+        except UnknownTimeZoneError:
+            pass
+    if g.user is not None:
+        user_timezone = g.user.get("timezone")
+        if user_timezone is not None:
+            try:
+                timezone(user_timezone)
+                return user_timezone
+            except UnknownTimeZoneError:
+                pass
+    return Config.BABEL_DEFAULT_TIMEZONE
 
 
 if __name__ == "__main__":

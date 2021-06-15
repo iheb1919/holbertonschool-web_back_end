@@ -1,4 +1,4 @@
--- Add bonus
+--
 --
 delimiter //
 CREATE PROCEDURE AddBonus(

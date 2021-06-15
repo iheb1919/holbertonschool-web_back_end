@@ -1,5 +1,5 @@
--- This script creates a ComputeAverageScoreForUser stored procedure
--- ComputeAverageScoreForUser computes and stores average score for a student
+--
+--
 DELIMITER //
 
 CREATE PROCEDURE ComputeAverageScoreForUser(

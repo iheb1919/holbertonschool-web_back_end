@@ -77,3 +77,10 @@ class Cache:
                 return fn(result)
             else:
                 return result
+    def get_str(self, key: str) -> str:
+        """ get_str """
+        return self.get(key, str)
+
+    def get_int(self, key: str) -> int:
+        """get_int """
+        return self.get(key, int)

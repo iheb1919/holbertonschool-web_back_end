@@ -3,7 +3,7 @@
 0x0B. Redis basic
 """
 from functools import wraps
-from redis.client import Redis
+import redis
 from typing import Union, Callable, Optional, Any
 import uuid
 
@@ -56,8 +56,8 @@ class Cache:
     """Cache class"""
 
     def __init__(self):
-        """constructor"""
-        self._redis = Redis()
+        """ constructor"""
+        self._redis = redis.Redis()
         self._redis.flushdb()
 
     @call_history

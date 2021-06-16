@@ -1,5 +1,3 @@
-const util = require('util');
-
 export default class HolbertonClass {
   constructor(size, location) {
     this._size = size;
